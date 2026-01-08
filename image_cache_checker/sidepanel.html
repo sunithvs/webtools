@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Analysis</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Image Insight</h1>
+      <p class="subtitle">Cache & Efficiency Analyzer</p>
+    </header>
+
+    <div class="control-panel">
+      <button id="analyzeBtn" class="primary-btn">
+        <span class="icon">🔍</span> Analyze Page
+      </button>
+    </div>
+
+    <div id="filters" class="filters hidden">
+      <div class="filter-group">
+        <label class="toggle-switch">
+          <input type="checkbox" id="noCacheOnly">
+          <span class="slider round"></span>
+          <span class="label-text">Not Cached Only</span>
+        </label>
+      </div>
+      
+      <div class="filter-row">
+        <select id="typeFilter" class="styled-select">
+          <option value="all">All Formats</option>
+          <option value="jpg">JPG/JPEG</option>
+          <option value="png">PNG</option>
+          <option value="webp">WebP</option>
+          <option value="svg">SVG</option>
+          <option value="gif">GIF</option>
+        </select>
+        
+        <select id="sortOrder" class="styled-select">
+          <option value="sizeDesc">Size (High to Low)</option>
+          <option value="sizeAsc">Size (Low to High)</option>
+        </select>
+      </div>
+    </div> <div id="stats" class="stats-panel hidden">
+      <div class="stat-card">
+        <span class="stat-value" id="totalImages">0</span>
+        <span class="stat-label">Images</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="uncachedCount">0</span>
+        <span class="stat-label">Uncached</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="totalSize">0MB</span>
+        <span class="stat-label">Total Size</span>
+      </div>
+    </div>
+
+    <div id="suggestions" class="suggestions hidden">
+      <h3>⚡ Optimization Tips</h3>
+      <ul id="suggestionList"></ul>
+    </div>
+
+    <div id="results" class="results-list">
+      <div class="empty-state">
+        <p>Click "Analyze Page" to scan images.</p>
+      </div>
+    </div>
+  </div>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

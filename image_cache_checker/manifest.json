@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Image Cache Efficiency Checker",
+  "version": "1.0",
+  "description": "Analyzes image caching status, size, and efficiency on the current page.",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Image Analysis"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}
