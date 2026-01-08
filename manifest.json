@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Image Insight",
+  "name": "Clens",
   "version": "1.0",
   "description": "Analyzes image caching status, size, and efficiency on the current page.",
   "icons": {

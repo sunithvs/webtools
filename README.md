@@ -18,7 +18,7 @@
 
 ### Method 1: Download from Releases (Recommended)
 
-1. **[Download the latest release](./releases/latest/download/image-insight.zip)** (Note: This link works after the first release).
+1. **[Download the latest release](./releases/latest/download/clens.zip)** (Note: This link works after the first release).
 2. Unzip the downloaded file.
 3. Open Chrome and navigate to `chrome://extensions/`.
 4. Enable **Developer Mode** (top right switch).

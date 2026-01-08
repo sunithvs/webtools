@@ -1,8 +1,8 @@
-# Release Notes - Image Insight v1.0
+# Release Notes - Clens v1.0
 
 ## 🚀 Initial Release
 
-We are excited to introduce **Image Insight**, the ultimate Chrome extension for developers to analyze image caching, size, and efficiency directly within the browser.
+We are excited to introduce **Clens**, the ultimate Chrome extension for developers to analyze image caching, size, and efficiency directly within the browser.
 
 ### ✨ Key Features
 
