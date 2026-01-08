@@ -23,7 +23,8 @@
     "default_path": "sidepanel.html"
   },
   "action": {
-    "default_title": "Open Image Analysis"
+    "default_title": "Open Image Analysis",
+    "default_icon": "icons/icon.png"
   },
   "content_scripts": [
     {
