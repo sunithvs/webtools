@@ -45,6 +45,7 @@ h1 {
   font-size: 1.25rem;
   font-weight: 700;
   background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
@@ -294,6 +295,11 @@ input {
 .badge.cached {
   background-color: rgba(16, 185, 129, 0.1);
   color: var(--success-color);
+}
+
+.badge.warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #d97706;
 }
 
 .empty-state {

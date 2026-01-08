@@ -27,17 +27,49 @@ analyzeBtn.addEventListener('click', async () => {
         });
 
         // Request analysis
-        chrome.tabs.sendMessage(tab.id, { action: "analyze" }, (response) => {
-            analyzeBtn.disabled = false;
-            analyzeBtn.innerHTML = '<span class="icon">🔍</span> Analyze Page';
-
+        chrome.tabs.sendMessage(tab.id, { action: "analyze" }, async (response) => {
             if (chrome.runtime.lastError) {
                 resultsContainer.innerHTML = `<div class="empty-state">Error: ${chrome.runtime.lastError.message}</div>`;
                 return;
             }
 
             if (response && response.images) {
-                currentImages = response.images;
+                let images = response.images;
+
+                // Get headers from background script
+                const urls = images.map(img => img.url);
+                const headerResponse = await new Promise(resolve => {
+                    chrome.runtime.sendMessage({ action: "getHeaders", urls: urls }, resolve);
+                });
+
+                // Merge headers
+                images = images.map(img => {
+                    const headers = headerResponse ? headerResponse[img.url] : null;
+                    let cacheControl = null;
+
+                    if (headers) {
+                        cacheControl = headers['cache-control'];
+                    }
+
+                    // Refine cache status based on headers
+                    let isCached = img.isCached;
+                    let cacheWarning = null;
+
+                    if (!isCached && cacheControl) {
+                        if (cacheControl.includes('no-cache') || cacheControl.includes('no-store')) {
+                            cacheWarning = 'Explicitly Uncached (Header)';
+                        } else if (cacheControl.includes('max-age=0')) {
+                            cacheWarning = 'max-age=0';
+                        }
+                    }
+
+                    return { ...img, headers, cacheControl, cacheWarning };
+                });
+
+                currentImages = images;
+
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '<span class="icon">🔍</span> Analyze Page';
 
                 // Show controls
                 document.getElementById('filters').classList.remove('hidden');
@@ -47,6 +79,8 @@ analyzeBtn.addEventListener('click', async () => {
                 filterAndRender();
                 generateSuggestions();
             } else {
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '<span class="icon">🔍</span> Analyze Page';
                 resultsContainer.innerHTML = '<div class="empty-state">No images found or analysis failed.</div>';
             }
         });
@@ -163,6 +197,13 @@ function renderList(images) {
         badgeSpan.className = `badge ${badgeClass}`;
         badgeSpan.textContent = badgeText;
 
+        if (img.cacheWarning) {
+            const warningSpan = document.createElement('span');
+            warningSpan.className = 'badge warning';
+            warningSpan.textContent = img.cacheWarning;
+            detailsDiv.appendChild(warningSpan);
+        }
+
         detailsDiv.appendChild(sizeSpan);
         detailsDiv.appendChild(badgeSpan);
 
@@ -196,6 +237,33 @@ function generateSuggestions() {
     const uncached = currentImages.filter(i => !i.isCached);
     if (uncached.length > 5) {
         suggestions.push(`${uncached.length} images are not cached. Check your server's Cache-Control headers.`);
+    }
+
+    // Check for explicitly uncached assets (no-cache headers)
+    const explicitlyUncached = currentImages.filter(i => i.cacheWarning === 'Explicitly Uncached (Header)');
+    if (explicitlyUncached.length > 0) {
+        suggestions.push(`${explicitlyUncached.length} images have 'no-cache' or 'no-store' headers. Remove if possible.`);
+    }
+
+    // Check for dimensions mismatch
+    const oversizedImages = currentImages.filter(i => {
+        if (i.width > 0 && i.naturalWidth > 0) {
+            return i.naturalWidth > i.width * 2; // Intrinsic is more than 2x display width
+        }
+        return false;
+    });
+    if (oversizedImages.length > 0) {
+        suggestions.push(`${oversizedImages.length} images are significantly larger than their display size. Resize them.`);
+    }
+
+    // Check for lazy loading opportunities
+    const lazyLoadCandidates = currentImages.filter(i => {
+        // Simple heuristic: if it's not lazy loaded and it's largeish
+        return !i.loading || i.loading !== 'lazy';
+    });
+    // This is a bit broad, maybe only if we have many images
+    if (lazyLoadCandidates.length > 10 && currentImages.length > 10) {
+        suggestions.push(`Consider adding loading="lazy" to off-screen images.`);
     }
 
     if (suggestions.length === 0) {

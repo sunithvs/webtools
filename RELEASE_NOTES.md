@@ -1,10 +1,17 @@
-# Release Notes - Clens v1.0
+# Release Notes - Clens v1.1
 
-## 🚀 Initial Release
+## 🚀 Version 1.1
 
-We are excited to introduce **Clens**, the ultimate Chrome extension for developers to analyze image caching, size, and efficiency directly within the browser.
+We are excited to introduce **Clens v1.1**, featuring enhanced analysis capabilities and smarter suggestions.
 
-### ✨ Key Features
+### ✨ New Features
+
+- **Advanced Cache Detection**: Now detects `no-cache`, `no-store`, and `max-age=0` headers to explain *why* an image isn't cached.
+- **Dimensions Check**: Identifies images that are significantly larger than their display size, helping you save bandwidth.
+- **Lazy Loading Suggestions**: Detects when multiple off-screen images are missing the `loading="lazy"` attribute.
+- **Improved UI**: New warning badges and clearer efficiency tips.
+
+### 🌟 Core Features
 
 - **Instant Analysis**: Scans all images on the current page with a single click.
 - **Cache Detection**: Identifies if images are served from **Memory Cache**, **Disk Cache**, or fetched over the **Network**.
