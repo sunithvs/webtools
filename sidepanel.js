@@ -44,16 +44,31 @@ analyzeBtn.addEventListener('click', async () => {
 
                 // Merge headers
                 images = images.map(img => {
-                    const headers = headerResponse ? headerResponse[img.url] : null;
+                    const details = headerResponse ? headerResponse[img.url] : null;
+                    const headers = details ? details.headers : null;
                     let cacheControl = null;
 
                     if (headers) {
                         cacheControl = headers['cache-control'];
                     }
 
-                    // Refine cache status based on headers
+                    // Refine cache status based on webRequest details
                     let isCached = img.isCached;
+                    let cacheType = img.cacheType;
                     let cacheWarning = null;
+
+                    if (details) {
+                        if (details.fromCache) {
+                            isCached = true;
+                            cacheType = 'Disk Cache';
+                        } else if (details.statusCode === 304) {
+                            isCached = true;
+                            cacheType = '304 Revalidated';
+                        } else if (details.statusCode === 200 && !details.fromCache) {
+                            isCached = false;
+                            cacheType = 'Network';
+                        }
+                    }
 
                     if (!isCached && cacheControl) {
                         if (cacheControl.includes('no-cache') || cacheControl.includes('no-store')) {
@@ -63,7 +78,7 @@ analyzeBtn.addEventListener('click', async () => {
                         }
                     }
 
-                    return { ...img, headers, cacheControl, cacheWarning };
+                    return { ...img, headers, cacheControl, cacheWarning, isCached, cacheType };
                 });
 
                 currentImages = images;

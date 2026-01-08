@@ -1,3 +1,16 @@
+# Release Notes - Clens v1.1.2
+
+## 🛠 Patch v1.1.2
+
+Fixes and stability improvements.
+
+### 🐛 Bug Fixes
+
+- **Extension Loading**: Fixed a critical issue where the side panel would fail to open.
+- **Cache Logic**: Improved detection of "Disk Cache" vs "Network" requests to handle 304 Revalidated responses correctly.
+
+---
+
 # Release Notes - Clens v1.1.1
 
 ## 🐛 Patch v1.1.1
