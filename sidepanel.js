@@ -186,6 +186,11 @@ function renderList(images) {
         fileNameDiv.title = img.url;
         fileNameDiv.textContent = fileName;
 
+        const pathDiv = document.createElement('div');
+        pathDiv.className = 'path';
+        pathDiv.textContent = img.url;
+        pathDiv.title = img.url;
+
         const detailsDiv = document.createElement('div');
         detailsDiv.className = 'details';
 
@@ -208,6 +213,7 @@ function renderList(images) {
         detailsDiv.appendChild(badgeSpan);
 
         infoDiv.appendChild(fileNameDiv);
+        infoDiv.appendChild(pathDiv);
         infoDiv.appendChild(detailsDiv);
 
         div.appendChild(imgEl);

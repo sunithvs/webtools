@@ -273,6 +273,15 @@ input {
   margin-bottom: 2px;
 }
 
+.path {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
 .details {
   font-size: 0.8rem;
   color: var(--text-secondary);

@@ -1,3 +1,15 @@
+# Release Notes - Clens v1.1.1
+
+## 🐛 Patch v1.1.1
+
+Small UI improvement.
+
+### 💅 UI Improvements
+
+- **Image Path Display**: Now showing the full image URL path below the filename to help distinguish assets with same filenames.
+
+---
+
 # Release Notes - Clens v1.1
 
 ## 🚀 Version 1.1
