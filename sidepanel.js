@@ -126,16 +126,52 @@ function renderList(images) {
 
         const div = document.createElement('div');
         div.className = 'image-item';
-        div.innerHTML = `
-      <img src="${img.url}" class="thumb" onerror="this.src='';this.style.backgroundColor='#ccc'">
-      <div class="info">
-        <div class="filename" title="${img.url}">${fileName}</div>
-        <div class="details">
-          <span class="size">${size}</span>
-          <span class="badge ${badgeClass}">${badgeText}</span>
-        </div>
-      </div>
-    `;
+
+        const imgEl = document.createElement('img');
+        imgEl.className = 'thumb';
+        imgEl.src = img.url;
+        imgEl.addEventListener('error', function () {
+            this.style.display = 'none'; // Hide broken images or replace with placeholder
+            const placeholder = document.createElement('div');
+            placeholder.className = 'thumb';
+            placeholder.style.backgroundColor = '#ccc';
+            placeholder.style.display = 'flex';
+            placeholder.style.alignItems = 'center';
+            placeholder.style.justifyContent = 'center';
+            placeholder.textContent = '?';
+
+            // Insert placeholder before the hidden image
+            imgEl.parentNode.insertBefore(placeholder, imgEl);
+        });
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'info';
+
+        const fileNameDiv = document.createElement('div');
+        fileNameDiv.className = 'filename';
+        fileNameDiv.title = img.url;
+        fileNameDiv.textContent = fileName;
+
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'details';
+
+        const sizeSpan = document.createElement('span');
+        sizeSpan.className = 'size';
+        sizeSpan.textContent = size;
+
+        const badgeSpan = document.createElement('span');
+        badgeSpan.className = `badge ${badgeClass}`;
+        badgeSpan.textContent = badgeText;
+
+        detailsDiv.appendChild(sizeSpan);
+        detailsDiv.appendChild(badgeSpan);
+
+        infoDiv.appendChild(fileNameDiv);
+        infoDiv.appendChild(detailsDiv);
+
+        div.appendChild(imgEl);
+        div.appendChild(infoDiv);
+
         resultsContainer.appendChild(div);
     });
 }

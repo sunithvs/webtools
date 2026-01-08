@@ -2,7 +2,8 @@
   --bg-color: #ffffff;
   --text-primary: #1f2937;
   --text-secondary: #6b7280;
-  --accent-color: #6366f1; /* Indigo */
+  --accent-color: #6366f1;
+  /* Indigo */
   --accent-hover: #4f46e5;
   --danger-color: #ef4444;
   --success-color: #10b981;
@@ -146,11 +147,11 @@ h1 {
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: var(--accent-color);
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(16px);
 }
 
@@ -192,7 +193,8 @@ input {
 
 /* Suggestions */
 .suggestions {
-  background-color: rgba(245, 158, 11, 0.1); /* Amber tint */
+  background-color: rgba(245, 158, 11, 0.1);
+  /* Amber tint */
   border: 1px solid rgba(245, 158, 11, 0.3);
   padding: 12px;
   border-radius: 8px;
@@ -209,7 +211,8 @@ input {
 .suggestions h3 {
   margin: 0 0 8px 0;
   font-size: 0.9rem;
-  color: #d97706; /* Amber 600 */
+  color: #d97706;
+  /* Amber 600 */
   display: flex;
   align-items: center;
   gap: 6px;
@@ -304,6 +307,31 @@ input {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+footer a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }

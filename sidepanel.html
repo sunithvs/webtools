@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Analysis</title>
   <link rel="stylesheet" href="sidepanel.css">
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -27,7 +29,7 @@
           <span class="label-text">Not Cached Only</span>
         </label>
       </div>
-      
+
       <div class="filter-row">
         <select id="typeFilter" class="styled-select">
           <option value="all">All Formats</option>
@@ -37,13 +39,14 @@
           <option value="svg">SVG</option>
           <option value="gif">GIF</option>
         </select>
-        
+
         <select id="sortOrder" class="styled-select">
           <option value="sizeDesc">Size (High to Low)</option>
           <option value="sizeAsc">Size (Low to High)</option>
         </select>
       </div>
-    </div> <div id="stats" class="stats-panel hidden">
+    </div>
+    <div id="stats" class="stats-panel hidden">
       <div class="stat-card">
         <span class="stat-value" id="totalImages">0</span>
         <span class="stat-label">Images</span>
@@ -68,7 +71,12 @@
         <p>Click "Analyze Page" to scan images.</p>
       </div>
     </div>
+
+    <footer>
+      <p>Made by <a href="https://sunithvs.com" target="_blank">Sunith</a> (sunithvs.com)</p>
+    </footer>
   </div>
   <script src="sidepanel.js"></script>
 </body>
+
 </html>
