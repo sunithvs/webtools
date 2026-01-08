@@ -280,15 +280,15 @@
                 <img src="images/logo.png" alt="Logo">
                 Clens
             </a>
-            <a href="https://github.com/sunithvs/webtools/releases/latest/download/clens.zip" class="cta-small">Download
-                v1.0</a>
+            <a href="https://github.com/sunithvs/webtools/releases/latest/download/clens.zip" class="cta-small"
+                id="downloadBtn">Download v1.0</a>
         </div>
     </nav>
 
     <section class="hero">
         <div class="pill">
             <span class="pill-dot"></span>
-            v1.0 is now available
+            <span id="versionPill">v1.0 is now available</span>
         </div>
         <h1>Analyze Images.<br><span style="color: #525252; -webkit-text-fill-color: #525252;">Optimize Speed.</span>
         </h1>
@@ -331,6 +331,20 @@
         <p>© 2024 Clens. Built by <a href="https://sunithvs.com">Sunith</a>.</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('https://api.github.com/repos/sunithvs/webtools/releases/latest')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.tag_name) {
+                        const version = data.tag_name;
+                        document.getElementById('downloadBtn').textContent = `Download ${version}`;
+                        document.getElementById('versionPill').textContent = `${version} is now available`;
+                    }
+                })
+                .catch(error => console.error('Error fetching latest release:', error));
+        });
+    </script>
 </body>
 
 </html>
